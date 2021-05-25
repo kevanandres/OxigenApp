@@ -115,10 +115,12 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
                     if (documentSnapshot.getString("isDoctor") != null) {
+                        Toast.makeText(Login.this,"Inicio exitoso", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), Doctor.class));
                         finish();
                     }
                     if (documentSnapshot.getString("isPatient") != null) {
+                        Toast.makeText(Login.this,"Inicio exitoso", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), Patient.class));
                         finish();
                     }

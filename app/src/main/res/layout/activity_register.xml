@@ -28,6 +28,12 @@
             android:hint="Nombre Completo"
             android:inputType="textPersonName" />
 
+        <Spinner
+            android:id="@+id/spinner_Genero"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:entries="@array/genero"/>
+
         <EditText
             android:id="@+id/email_register_txt"
             android:layout_width="match_parent"

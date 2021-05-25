@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".Register" />
         <activity android:name=".Patient" />
+        <activity android:name=".Historico_Paciente" />
+        <activity android:name=".Informacion_Paciente" />
     </application>
 
 </manifest>

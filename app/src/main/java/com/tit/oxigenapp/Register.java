@@ -31,9 +31,10 @@ public class Register extends AppCompatActivity {
     boolean valid = true;
     FirebaseAuth fAuth;
     FirebaseFirestore fStore;
-    Spinner spRol;
+    Spinner spRol, spGenero;
 
     String [] arrayRol = {"Doctor", "Paciente"};
+    String [] arrayGenero = {"Masculino", "Femenino"};
 
     @Override
     protected void onCreate (Bundle savedInstanceState) {
@@ -50,10 +51,12 @@ public class Register extends AppCompatActivity {
         password = findViewById(R.id.password_register_txt);
         date = findViewById(R.id.date_register_txt);
         spRol = findViewById(R.id.spinner_Rol);
+        spGenero = findViewById(R.id.spinner_Genero);
         registerBtn =  findViewById(R.id.create_acount_btn);
         loginBtn =  findViewById(R.id.login_register_btn);
 
         spRol.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,arrayRol));
+        spGenero.setAdapter(new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item,arrayGenero));
 
         spRol.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -88,6 +91,13 @@ public class Register extends AppCompatActivity {
                             Map<String,Object> usuarioInfo = new HashMap<>();
                             usuarioInfo.put("Nombre Completo",completeName.getText().toString());
                             usuarioInfo.put("Email",email.getText().toString());
+                            String seleccionGenero = spGenero.getSelectedItem().toString();
+                            if (seleccionGenero.equals("Masculino")) {
+                                usuarioInfo.put("esMasculino","M");
+                            }
+                            if (seleccionGenero.equals("Femenino")) {
+                                usuarioInfo.put("esFemenino","F");
+                            }
                             usuarioInfo.put("Telefono",phone.getText().toString());
                             usuarioInfo.put("Direccion",addres.getText().toString());
                             usuarioInfo.put("Password",password.getText().toString());
