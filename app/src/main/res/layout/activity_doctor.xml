@@ -30,6 +30,32 @@
             android:textSize="50dp"
             android:textAlignment="center"/>
 
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Historico"
+            app:backgroundTint="@color/botones" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Diagrama"
+            app:backgroundTint="@color/botones" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Informacion"
+            app:backgroundTint="@color/botones" />
+
         <Button
             android:id="@+id/logout_doctor_btn"
             android:layout_width="match_parent"
