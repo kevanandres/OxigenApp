@@ -59,6 +59,7 @@ public class Informacion_Paciente extends AppCompatActivity {
         email.setText(user.getEmail());
         id.setText(idUser);
 
+        //Clase para obtener datos
         obtenerDatos();
 
         //Boton Actualizar
