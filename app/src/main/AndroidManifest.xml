@@ -10,18 +10,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OxigenApp">
-        <activity android:name=".Doctor"></activity>
         <activity android:name=".Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".Register" />
         <activity android:name=".Patient" />
+        <activity android:name=".Doctor"/>
         <activity android:name=".Historico_Paciente" />
         <activity android:name=".Informacion_Paciente" />
+        <activity android:name=".Ingreso_Paciente" />
+        <activity android:name=".Informacion_Paciente_Doctor" />
+
     </application>
 
 </manifest>

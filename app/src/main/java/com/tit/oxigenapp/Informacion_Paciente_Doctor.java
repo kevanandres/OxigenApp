@@ -21,7 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Informacion_Paciente extends AppCompatActivity {
+public class Informacion_Paciente_Doctor extends AppCompatActivity {
     TextView email, prueba;
     EditText nombre_txt, dir_txt, tel_txt, id;
     FirebaseFirestore fstore;
@@ -35,7 +35,7 @@ public class Informacion_Paciente extends AppCompatActivity {
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_informacion_paciente);
+        setContentView(R.layout.activity_informacion_paciente_doctor);
 
         email = findViewById(R.id.doctor_info_correo_txt);
         regresarBtn = findViewById(R.id.doctor_info_regresar_button);
@@ -43,17 +43,24 @@ public class Informacion_Paciente extends AppCompatActivity {
         nombre_txt = findViewById(R.id.doctor_nombre_info_txt);
         dir_txt = findViewById(R.id.doctor_dir_info_txt);
         tel_txt = findViewById(R.id.doctor_tel_info_txt);
-        actualizarBtn = findViewById(R.id.actualizar_btn);
+
 
         fAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = fAuth.getCurrentUser();
         fstore = FirebaseFirestore.getInstance();
-        idUser = fAuth.getCurrentUser().getUid();
+
+
+
+        prueba= findViewById(R.id.textView2);
+        Bundle parametros = this.getIntent().getExtras();
+        String datos = parametros.getString("datos");
+
+        idUser = datos;
+
 
         //Mostrar Informacion
-        email.setText(user.getEmail());
-        id.setText(idUser);
 
+        id.setText(idUser);
 
 
 
@@ -61,22 +68,12 @@ public class Informacion_Paciente extends AppCompatActivity {
         obtenerDatos();
 
         //Boton Actualizar
-        actualizarBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DocumentReference df = fstore.collection("Usuarios").document(idUser);
-                Map<String, Object> map = new HashMap<>();
-                map.put("Nombre Completo",nombre_txt.getText().toString());
-                map.put("Direccion",dir_txt.getText().toString());
-                map.put("Telefono",tel_txt.getText().toString());
-                df.update(map);
-            }
-        });
+
 
         regresarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Patient.class));
+                startActivity(new Intent(getApplicationContext(),Doctor.class));
             }
         });
     }
@@ -90,7 +87,11 @@ public class Informacion_Paciente extends AppCompatActivity {
                 nombre_txt.setText(documentSnapshot.getString("Nombre Completo"));
                 dir_txt.setText(documentSnapshot.getString("Direccion"));
                 tel_txt.setText(documentSnapshot.getString("Telefono"));
+                email.setText(documentSnapshot.getString("Email"));
             }
         });
     }
+
+
+
 }
