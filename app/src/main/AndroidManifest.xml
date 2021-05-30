@@ -22,7 +22,9 @@
         <activity android:name=".Historico_Paciente" />
         <activity android:name=".Informacion_Paciente" />
         <activity android:name=".Ingreso_Paciente" />
-        <activity android:name=".Informacion_Paciente_Doctor" />
+        <activity android:name=".Informacion_Paciente_Doctor"/>
+        <activity android:name=".Historico_Paciente_Doctor"/>
+
 
     </application>
 

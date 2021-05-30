@@ -33,7 +33,7 @@ public class Doctor extends AppCompatActivity {
     FirebaseAuth fAuth;
     private String idUser;
     Spinner sp_Paciente;
-    Button NuevoPaciente, InformacionPaciente;
+    Button NuevoPaciente, InformacionPaciente,historico;
 
 
     @Override
@@ -46,6 +46,7 @@ public class Doctor extends AppCompatActivity {
         sp_Paciente = findViewById(R.id.spinner_Paciente);
         NuevoPaciente = findViewById(R.id.buttonAgregarPaciente);
         InformacionPaciente= findViewById(R.id.button_informacion);
+        historico=findViewById(R.id.button_historico_paciente);
         //Lamada de la funcion de carga de paciente
         carga_Paciente();
 
@@ -78,7 +79,7 @@ public class Doctor extends AppCompatActivity {
                     for (QueryDocumentSnapshot document : task.getResult()) {
                         //if (usuarioInfo.get("isPatient").equals("2")) {
                             String subject = document.getString("Nombre Completo");
-                            String subject2 = document.getString("Codigo Paciente");
+
                             usuarios.add(subject);
 
 
@@ -130,6 +131,39 @@ public class Doctor extends AppCompatActivity {
 
 
 
+
+            }
+        });
+
+
+        historico.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                String datos =sp_Paciente.getSelectedItem().toString();
+                CollectionReference pacienteRef = fStore.collection("Usuarios").document(idUser).collection("Pacientes");
+                String datos2;
+                pacienteRef.whereEqualTo("Nombre Completo", datos).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d( "Paciente",document.getId() + " => " + document.getData());
+                                String datos=document.getString("Codigo Paciente").toString();
+
+                                Bundle parmetros = new Bundle();
+                                parmetros.putString("datos", datos);
+                                Intent i = new Intent(getApplicationContext(), Historico_Paciente_Doctor.class);
+                                i.putExtras(parmetros);
+                                startActivity(i);
+                            }
+                        } else {
+                            Log.d("Paciente", "Error getting documents: ", task.getException());
+
+                        }
+                    }
+                });
 
             }
         });
