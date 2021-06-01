@@ -14,7 +14,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Patient extends AppCompatActivity {
-    Button historicoBtn, infoBtn;
+    Button historicoBtn, infoBtn, diagramaBtn;
     FirebaseFirestore fstore;
     FirebaseAuth fAuth;
     TextView bienvenido_txt;
@@ -27,6 +27,7 @@ public class Patient extends AppCompatActivity {
 
         historicoBtn = findViewById(R.id.historico_btn);
         infoBtn = findViewById(R.id.info_btn);
+        diagramaBtn = findViewById(R.id.diagrama_btn);
         bienvenido_txt = findViewById(R.id.bienvenido_txt);
 
         fAuth = FirebaseAuth.getInstance();
@@ -60,6 +61,14 @@ public class Patient extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Informacion_Paciente.class));
+                finish();
+            }
+        });
+
+        diagramaBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Diagrama_Paciente.class));
                 finish();
             }
         });
