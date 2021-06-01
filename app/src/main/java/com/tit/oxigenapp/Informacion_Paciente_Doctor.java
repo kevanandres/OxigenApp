@@ -44,12 +44,9 @@ public class Informacion_Paciente_Doctor extends AppCompatActivity {
         dir_txt = findViewById(R.id.doctor_dir_info_txt);
         tel_txt = findViewById(R.id.doctor_tel_info_txt);
 
-
         fAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = fAuth.getCurrentUser();
         fstore = FirebaseFirestore.getInstance();
-
-
 
         prueba= findViewById(R.id.textView2);
         Bundle parametros = this.getIntent().getExtras();
@@ -57,18 +54,11 @@ public class Informacion_Paciente_Doctor extends AppCompatActivity {
 
         idUser = datos;
 
-
         //Mostrar Informacion
-
         id.setText(idUser);
-
-
 
         //Clase para obtener datos
         obtenerDatos();
-
-        //Boton Actualizar
-
 
         regresarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +81,4 @@ public class Informacion_Paciente_Doctor extends AppCompatActivity {
             }
         });
     }
-
-
-
 }

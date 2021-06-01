@@ -33,7 +33,7 @@ public class Doctor extends AppCompatActivity {
     FirebaseAuth fAuth;
     private String idUser;
     Spinner sp_Paciente;
-    Button NuevoPaciente, InformacionPaciente,historico;
+    Button NuevoPaciente, InformacionPaciente, historico, medicacion;
 
 
     @Override
@@ -45,8 +45,10 @@ public class Doctor extends AppCompatActivity {
 
         sp_Paciente = findViewById(R.id.spinner_Paciente);
         NuevoPaciente = findViewById(R.id.buttonAgregarPaciente);
-        InformacionPaciente= findViewById(R.id.button_informacion);
-        historico=findViewById(R.id.button_historico_paciente);
+        InformacionPaciente = findViewById(R.id.button_informacion);
+        historico = findViewById(R.id.button_historico_paciente);
+        medicacion = findViewById(R.id.button_medicacion);
+
         //Lamada de la funcion de carga de paciente
         carga_Paciente();
 
@@ -56,8 +58,6 @@ public class Doctor extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),Ingreso_Paciente.class));
             }
         });
-
-
     }
 
     //Cargar Paciente
@@ -77,41 +77,26 @@ public class Doctor extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        //if (usuarioInfo.get("isPatient").equals("2")) {
-                            String subject = document.getString("Nombre Completo");
-
-                            usuarios.add(subject);
-
-
-                        //}
+                        String subject = document.getString("Nombre Completo");
+                        usuarios.add(subject);
                     }
-
                     adapter.notifyDataSetChanged();
                 }
             }
         });
-
-
-
-
-
-
-
-
 
         InformacionPaciente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String datos =sp_Paciente.getSelectedItem().toString();
                 CollectionReference pacienteRef = fStore.collection("Usuarios").document(idUser).collection("Pacientes");
-                String datos2;
                 pacienteRef.whereEqualTo("Nombre Completo", datos).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         if (task.isSuccessful()) {
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Log.d( "Paciente",document.getId() + " => " + document.getData());
-                                String datos=document.getString("Codigo Paciente").toString();
+                                String datos = document.getString("Codigo Paciente").toString();
 
                                 Bundle parmetros = new Bundle();
                                 parmetros.putString("datos", datos);
@@ -121,26 +106,15 @@ public class Doctor extends AppCompatActivity {
                             }
                         } else {
                             Log.d("Paciente", "Error getting documents: ", task.getException());
-
                         }
                     }
                 });
-
-
-
-
-
-
-
             }
         });
-
 
         historico.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 String datos =sp_Paciente.getSelectedItem().toString();
                 CollectionReference pacienteRef = fStore.collection("Usuarios").document(idUser).collection("Pacientes");
                 String datos2;
@@ -164,10 +138,35 @@ public class Doctor extends AppCompatActivity {
                         }
                     }
                 });
-
             }
         });
 
+        medicacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String datos = sp_Paciente.getSelectedItem().toString();
+                CollectionReference pacienteRef = fStore.collection("Usuarios").document(idUser).collection("Pacientes");
+                pacienteRef.whereEqualTo("Nombre Completo", datos).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Log.d( "Paciente",document.getId() + " => " + document.getData());
+                                String datos = document.getId().toString();
+
+                                Bundle parmetros = new Bundle();
+                                parmetros.putString("datos3", datos);
+                                    Intent i = new Intent(getApplicationContext(), Medicacion_Doctor.class);
+                                i.putExtras(parmetros);
+                                startActivity(i);
+                            }
+                        } else {
+                            Log.d("Paciente", "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+            }
+        });
     }
 
     public void logoutAdmin(View view) {

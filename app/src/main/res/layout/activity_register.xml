@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Fecha de Nacimiento"
+            android:hint="Fecha de Nacimiento: DD/MM/AAAA"
             android:inputType="date" />
 
         <Spinner

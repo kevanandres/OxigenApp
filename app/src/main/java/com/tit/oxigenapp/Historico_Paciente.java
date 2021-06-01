@@ -32,13 +32,13 @@ public class Historico_Paciente extends AppCompatActivity {
     historicoAdapter mAdapter;
     FirebaseFirestore mFirestore;
     String numero=null;
+
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_historico_paciente);
 
         regresarBtn =  findViewById(R.id.regresar_btn);
-
 
         fAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = fAuth.getCurrentUser();
@@ -49,20 +49,12 @@ public class Historico_Paciente extends AppCompatActivity {
         recyclerViewHisorico.setLayoutManager(new LinearLayoutManager(this ));
         mFirestore = FirebaseFirestore.getInstance();
 
-
-
-
-
-
-
         Query query = mFirestore.collection("Usuarios").document(idUser).collection("spo2");
 
         FirestoreRecyclerOptions<historico> firestoreRecyclerOptions = new FirestoreRecyclerOptions.Builder<historico>().setQuery(query, historico.class).build();
         mAdapter = new historicoAdapter(firestoreRecyclerOptions);
         mAdapter.notifyDataSetChanged();
         recyclerViewHisorico.setAdapter(mAdapter);
-
-
 
         regresarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +68,6 @@ public class Historico_Paciente extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         mAdapter.startListening();
-
     }
 
     @Override

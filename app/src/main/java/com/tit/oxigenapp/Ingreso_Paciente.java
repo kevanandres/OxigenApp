@@ -49,24 +49,13 @@ public class Ingreso_Paciente extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
-
-
-
-
-
-
         AgregarPaciente.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkField(TxtCodPaciente);
                 obtenerDatos();
-
-
             }
         });
-
-
-
 
         RegresarDoctor.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,9 +63,7 @@ public class Ingreso_Paciente extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),Doctor.class));
             }
         });
-
     }
-
 
     public boolean checkField (EditText textField) {
         if (textField.getText().toString().isEmpty()) {
@@ -91,24 +78,33 @@ public class Ingreso_Paciente extends AppCompatActivity {
     private void obtenerDatos() {
         DocumentReference pacienteRef = fStore.collection("Usuarios").document(TxtCodPaciente.getText().toString());
         FirebaseUser user = fAuth.getCurrentUser();
-        Toast.makeText(Ingreso_Paciente.this,"Paciente Agregado", Toast.LENGTH_SHORT).show();
         DocumentReference df = fStore.collection("Usuarios").document(user.getUid()).collection("Pacientes").document();
 
         pacienteRef.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException error) {
                 TxtNombrePaciente.setText(documentSnapshot.getString("Nombre Completo"));
-                NombreCompleto= documentSnapshot.getString("Nombre Completo");
+                NombreCompleto = documentSnapshot.getString("Nombre Completo");
 
-                Map<String,Object> usuarioInfo = new HashMap<>();
-                usuarioInfo.put("Codigo Paciente",TxtCodPaciente.getText().toString());
-                usuarioInfo.put("Nombre Completo",NombreCompleto);
-                df.set(usuarioInfo);
+                String validar_Doctor = documentSnapshot.getString("Codigo Doctor");
+                if (validar_Doctor == null && NombreCompleto != null) {
+                    Toast.makeText(Ingreso_Paciente.this,"Paciente Agregado", Toast.LENGTH_SHORT).show();
+                    Map<String,Object> usuarioInfo = new HashMap<>();
+                    usuarioInfo.put("Codigo Paciente",TxtCodPaciente.getText().toString());
+                    usuarioInfo.put("Nombre Completo",NombreCompleto);
+                    df.set(usuarioInfo);
+
+                    String codigo = TxtCodPaciente.getText().toString();
+                    DocumentReference df2 = fStore.collection("Usuarios").document(codigo);
+                    Map<String,Object> usuarioInfo2 = new HashMap<>();
+                    usuarioInfo2.put("Codigo Doctor",user.getUid());
+                    df2.update(usuarioInfo2);
+                    Log.d("Paciente", "Agrego paciente");
+                } else {
+                    Toast.makeText(Ingreso_Paciente.this,"Error al agregar paciente", Toast.LENGTH_SHORT).show();
+                    Log.d("Paciente", "Error getting documents");
+                }
             }
         });
-
-
-
-
     }
 }

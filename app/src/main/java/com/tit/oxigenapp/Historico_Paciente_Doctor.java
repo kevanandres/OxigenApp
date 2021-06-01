@@ -33,7 +33,6 @@ public class Historico_Paciente_Doctor extends AppCompatActivity {
 
         regresarBtn = findViewById(R.id.doctor_regresar_btn);
 
-
         fAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = fAuth.getCurrentUser();
         fstore = FirebaseFirestore.getInstance();
@@ -45,7 +44,6 @@ public class Historico_Paciente_Doctor extends AppCompatActivity {
         recyclerViewHisorico = findViewById(R.id.recyclerHistorico);
         recyclerViewHisorico.setLayoutManager(new LinearLayoutManager(this));
         mFirestore = FirebaseFirestore.getInstance();
-
 
         Query query = mFirestore.collection("Usuarios").document(datos).collection("spo2");
 
