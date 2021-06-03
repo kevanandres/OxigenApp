@@ -43,7 +43,7 @@
             app:backgroundTint="@color/botones" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_diagrama_paciente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Diagrama"

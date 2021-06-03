@@ -25,7 +25,9 @@
         <activity android:name=".Informacion_Paciente_Doctor"/>
         <activity android:name=".Historico_Paciente_Doctor"/>
         <activity android:name=".Medicacion_Doctor"/>
+        <activity android:name=".Medicacion_Paciente"/>
         <activity android:name=".Diagrama_Paciente"/>
+        <activity android:name=".Diagrama_Paciente_Doctor"/>
     </application>
 
 </manifest>

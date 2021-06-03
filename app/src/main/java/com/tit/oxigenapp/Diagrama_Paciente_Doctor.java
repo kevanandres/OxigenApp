@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -16,9 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,16 +28,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.time.format.DateTimeFormatter;
 
-public class Diagrama_Paciente extends AppCompatActivity {
+public class Diagrama_Paciente_Doctor  extends AppCompatActivity {
     Button regresarBtn, buscarFecha;
     LineChart lineChart;
     FirebaseFirestore fStore;
@@ -60,9 +55,10 @@ public class Diagrama_Paciente extends AppCompatActivity {
         sYear=C.get(Calendar.YEAR);
         buscarFecha=findViewById(R.id.ButtonBuscarFecha);
         t1= (EditText)findViewById(R.id.editTextFechaDiagrama);
-        java.util.Date fecha = new Date();
-
         t1.setText(sMonth + "-" + sDay  + "-" + sYear);
+        Bundle parametros = this.getIntent().getExtras();
+        String datos = parametros.getString("datos");
+
         t1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +77,7 @@ public class Diagrama_Paciente extends AppCompatActivity {
 
         idUser = fAuth.getCurrentUser().getUid();
 
-        CollectionReference pacienteRef = fStore.collection("Usuarios").document(idUser).collection("spo2");
+        CollectionReference pacienteRef = fStore.collection("Usuarios").document(datos).collection("spo2");
         //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, porcentaje);
         //  adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -135,7 +131,7 @@ public class Diagrama_Paciente extends AppCompatActivity {
                     }
                     else{
                         t1.setText(sMonth + "-" + sDay  + "-" + sYear);
-                        Toast.makeText(Diagrama_Paciente.this,"No hay datos para esa fecha", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Diagrama_Paciente_Doctor.this,"No hay datos para esa fecha", Toast.LENGTH_SHORT).show();
                         numero=0;
 
                     }
@@ -153,8 +149,7 @@ public class Diagrama_Paciente extends AppCompatActivity {
         regresarBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                startActivity(new Intent(getApplicationContext(),Patient.class));
+                startActivity(new Intent(getApplicationContext(),Doctor.class));
             }
         });
         buscarFecha.setOnClickListener(new View.OnClickListener() {
@@ -172,7 +167,7 @@ public class Diagrama_Paciente extends AppCompatActivity {
 
                     idUser = fAuth.getCurrentUser().getUid();
 
-                    CollectionReference pacienteRef = fStore.collection("Usuarios").document(idUser).collection("spo2");
+                    CollectionReference pacienteRef = fStore.collection("Usuarios").document(datos).collection("spo2");
 
                     pacienteRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
@@ -220,7 +215,7 @@ public class Diagrama_Paciente extends AppCompatActivity {
                                 }
                                 else{
                                     t1.setText(sMonth + "-" + sDay  + "-" + sYear);
-                                    Toast.makeText(Diagrama_Paciente.this,"No hay datos para esa fecha", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Diagrama_Paciente_Doctor.this,"No hay datos para esa fecha", Toast.LENGTH_SHORT).show();
                                     numero=0;
 
                                 }
@@ -268,4 +263,6 @@ public class Diagrama_Paciente extends AppCompatActivity {
 
         return null;
     }
+
+
 }
