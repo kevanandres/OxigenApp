@@ -55,13 +55,13 @@ public class Diagrama_Paciente extends AppCompatActivity {
         setContentView(R.layout.activity_diagrama_paciente);
 
         regresarBtn = findViewById(R.id.regresar_diag_btn);
+
+
         sMonth=C.get(Calendar.MONTH)+1;
         sDay=C.get(Calendar.DAY_OF_MONTH);
         sYear=C.get(Calendar.YEAR);
         buscarFecha=findViewById(R.id.ButtonBuscarFecha);
         t1= (EditText)findViewById(R.id.editTextFechaDiagrama);
-        java.util.Date fecha = new Date();
-
         t1.setText(sMonth + "-" + sDay  + "-" + sYear);
         t1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,11 +107,13 @@ public class Diagrama_Paciente extends AppCompatActivity {
                         int f1 = Integer.parseInt(dia);
                         int f3 = Integer.parseInt(mes);
                         int f4 = Integer.parseInt(anio);
-                        int f = Integer.parseInt(timeStamp) - 5;
+                        int f = Integer.parseInt(timeStamp)  ;
                         int f2 = (int) subject2;
                         // Log.d( "Paciente",f1+ " => "+nDay + " => "+ f3+ " => "+nMonth+ " => "+f4+ " => "+nYear);
                         if (f1 == sDay && f3 == sMonth && f4 == sYear) {
-
+                            if(f==24){
+                                f=0;
+                            }
 
                             porcentaje.add(new Entry((f), (f2)));
                             //Log.d("Paciente", f + " => " + f2);
@@ -194,13 +196,15 @@ public class Diagrama_Paciente extends AppCompatActivity {
                                     int f1 = Integer.parseInt(dia);
                                     int f3 = Integer.parseInt(mes);
                                     int f4 = Integer.parseInt(anio);
-                                    int f = Integer.parseInt(timeStamp) - 5;
+                                    int f = Integer.parseInt(timeStamp) ;
                                     int f2 = (int) subject2;
                                     if (f1 == nDay && f3 == nMonth + 1 && f4 == nYear) {
 
-
+                                        if(f==24){
+                                            f=0;
+                                        }
                                         porcentaje.add(new Entry((f), (f2)));
-                                        Log.d("Paciente", f + "");
+                                        Log.d("Paciente", f + " "+f2);
                                         numero=1;
                                     }
 

@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Nombre Completo"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ" />
 
         <Spinner
             android:id="@+id/spinner_Genero"
@@ -56,6 +57,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Direccion"
+            android:maxLength= "10"
             android:inputType="textPostalAddress" />
 
         <EditText

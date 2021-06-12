@@ -29,6 +29,7 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_login);
 
         fAuth = FirebaseAuth.getInstance();
@@ -52,7 +53,7 @@ public class Login extends AppCompatActivity {
                         public void onSuccess(AuthResult authResult) {
                             Toast.makeText(Login.this,"Inicio de sesion exitoso.",Toast.LENGTH_SHORT).show();
                             checkUserAccessLevel(authResult.getUser().getUid());
-                            finish();
+                            //finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -81,14 +82,14 @@ public class Login extends AppCompatActivity {
                 Log.d("TAG","onSucces: " + documentSnapshot.getData());
                 //Identificar el nivel de acceso del usuario
                 //Llamada a la clases del doctor
-                if (documentSnapshot.getString("isDoctor") != null) {
+                if (documentSnapshot.getString("isDoctor") !=null) {
                     //Usuario doctor
                     startActivity(new Intent(getApplicationContext(), Doctor.class));
                     finish();
                 }
                 //Identificar el nivel de acceso del usuario
                 //Llamada a la clases del paciente
-                if (documentSnapshot.getString("isPatient") != null) {
+                if (documentSnapshot.getString("isPatient") !=null) {
                     startActivity(new Intent(getApplicationContext(), Patient.class));
                     finish();
                 }
@@ -119,7 +120,7 @@ public class Login extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), Doctor.class));
                         finish();
                     }
-                    if (documentSnapshot.getString("isPatient") != null) {
+                    if (documentSnapshot.getString("isPatient") !=null) {
                         Toast.makeText(Login.this,"Inicio exitoso", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(getApplicationContext(), Patient.class));
                         finish();
