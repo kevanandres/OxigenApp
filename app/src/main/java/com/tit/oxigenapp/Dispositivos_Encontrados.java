@@ -1,7 +1,5 @@
 package com.tit.oxigenapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -73,8 +71,10 @@ public class Dispositivos_Encontrados extends ListActivity {
         Set<BluetoothDevice> pariedDevices = mBluetoothAdapter.getBondedDevices();
         if(pariedDevices.size() > 0){
             for(BluetoothDevice device : pariedDevices){
-                mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
-                btDeviceArray.add(device);
+                if (device.getName().equals("HC-05")) {
+                    mArrayAdapter.add(device.getName() + "\n" + device.getAddress());
+                    btDeviceArray.add(device);
+                }
             }
         }
 
