@@ -8,6 +8,7 @@
     android:background="@drawable/fondo_login">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -26,9 +27,9 @@
             android:id="@+id/bienvenido_txt2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="Bienvenido"
             android:textAlignment="center"
-            android:textSize="50dp"
-            android:text="Bienvenido"/>
+            android:textSize="50dp" />
 
         <TextView
             android:id="@+id/bienvenido_txt"
@@ -66,10 +67,18 @@
             app:backgroundTint="@color/botones" />
 
         <Button
+            android:id="@+id/Conectar_Btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Conectar Dispositivo"
+            app:backgroundTint="@color/botones" />
+
+        <Button
             android:id="@+id/logout_paciente_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Cerrar Sesion"
             app:backgroundTint="@color/boton_cerrar_sesion" />
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

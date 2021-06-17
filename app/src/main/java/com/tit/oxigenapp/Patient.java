@@ -14,7 +14,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class Patient extends AppCompatActivity {
-    Button historicoBtn, infoBtn, diagramaBtn, medicacionBtn;
+    Button historicoBtn, infoBtn, diagramaBtn, medicacionBtn, conectarBtn;
     FirebaseFirestore fstore;
     FirebaseAuth fAuth;
     TextView bienvenido_txt;
@@ -30,6 +30,7 @@ public class Patient extends AppCompatActivity {
         diagramaBtn = findViewById(R.id.diagrama_btn);
         medicacionBtn = findViewById(R.id.medicacion_Pac_btn);
         bienvenido_txt = findViewById(R.id.bienvenido_txt);
+        conectarBtn = findViewById(R.id.Conectar_Btn);
 
         fAuth = FirebaseAuth.getInstance();
         final FirebaseUser user = fAuth.getCurrentUser();
@@ -58,6 +59,14 @@ public class Patient extends AppCompatActivity {
             }
         });
 
+        conectarBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Dispositivos_Encontrados.class));
+                finish();
+            }
+        });
+
         infoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,5 +90,6 @@ public class Patient extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 }
